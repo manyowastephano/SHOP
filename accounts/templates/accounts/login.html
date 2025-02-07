@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'accounts/CSS/login.css' %}">
+</head>
+<body>
+    {% block content %}
+    <div class="login-container">
+    <form action="" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+        {% comment %} <input type="text" name="username" placeholder="Enter your username"><br>
+        <input type="password" name="password" id="" placeholder="Enter your password"><br>
+         <input type="submit" value="Login" id="submit-btn">
+         <a href="#" class="forget-pasword-btn">Forget Password</a><br> {% endcomment %}
+         <input type="submit" value="Login" id="submit-btn">
+         <span>Don`t have account</span>
+         <a href="{% url 'signup' %}" class="sign-up-btn">Sign up</a>
+    </form>
+    </div>
+
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up page</title>
+    <link rel="stylesheet" href="{% static 'accounts/CSS/signup.css' %}">
+</head>
+<body>
+    {% block content %}
+    <h2>Covenant online Shop Registeration form</h2>
+    <div class="container">
+        <form action="" method="POST" enctype="multipart/form-data">
+           {% csrf_token %}
+           {{ form.as_p }}
+            <input type="submit" value="Sign up" id="submit-btn"><br>
+            <span class="span-btn">Already have account? </span>
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+        </form>
+    </div>
+    
+    {% endblock %}
+</body>
+</html>
