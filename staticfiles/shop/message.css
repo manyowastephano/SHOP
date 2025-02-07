@@ -1,0 +1,23 @@
+body{
+    overflow-y:auto ;
+}
+.sender-section{
+    width:fit-content;
+    height:auto;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color:blue;
+    color: #fff;
+    float: right;
+}
+.receiver-section{
+    width:auto;
+    height:auto;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color:#dddd;
+    color: #000;
+    float: left;
+}
