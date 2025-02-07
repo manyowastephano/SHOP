@@ -1,0 +1,25 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit items</title>
+    
+</head>
+<body>
+      
+<h4>Are you you want to delete <h4>
+    
+<div>
+    <form method='POST' action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <a href="{{request.META.HTTP_REFERER}}">Go back</a>
+        <input type="submit" value="Comfirm">
+    </form>
+</div>
+</body>
+</html> 
+
+

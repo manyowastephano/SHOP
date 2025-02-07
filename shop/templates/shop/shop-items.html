@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shops Items</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static  'shop/CSS/items.css'  %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="{% static 'shop/JS/jquerry.js' %}"></script>
+</head>
+<body>
+    
+    {% if request.user.is_authenticated %}
+    <h4> {{greeting}} {{request.user.first_name}} {{request.user.last_name}} Welcome to Mark Gee online shop </h4>
+    {% endif %}
+     <nav role="navigation">
+            <div class="hambuger-bar" onclick=" togglemenu()">
+                  <div class="hambargur-line"></div>
+                  <div class="hambargur-line"></div>
+                  <div class="hambargur-line"></div>
+                  <div class="hover-element-decription">
+                    <p>Menu</p>
+                  </div>
+            </div>
+            <div id="menu" class="menu">
+                <p>oj og</p>
+              </div>
+            <div class="box">
+                <div class="search-box" id="search-box" >
+                    <input type="text" id="search-input" placeholder="Search here..">
+                    <label for="icon" id="search-icon" class="search-icon" onclick="toggleSearch()"><i class="fa fa-search"></i></label>
+                    <i class="fa fa-times" id="close-btn"></i>
+                </div>
+            </div>
+            <div class="voice-search" id="voice-search">
+                <a id="voiceSearchBtn" href="#"><i class="fa fa-microphone"></i></a>
+                <div class="hover-element-decription">
+                    <p>Search with your voice</p>
+                  </div>
+            </div>
+             <div class="chart-feed"  id="chart-feed">
+                <a href="chart.html"><i class="fab fa-facebook-messenger"></i></a>
+                <div class="hover-element-decription">
+                    <p>Chart section</p>
+                  </div>
+            </div>
+            <div class="upload-feed" id="upload-feed">
+                <a href="{% url 'upload-items' %}"><i class="fa fa-upload"></i></a>
+                <div class="hover-element-decription">
+                    <p>upload your items</p>
+                  </div>
+            </div>
+
+            {% if request.user.is_authenticated %}
+            <div class="logut-up-option">
+                <a href="{% url 'logout'  %}">
+                    <i class="fa fa-sign-out"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+            {% else %}
+            <div class="sign-up-option">
+                <a href="{% url 'signup'  %}">
+                    <i class="fa fa-user"></i>
+                    <span>Sign up</span>
+                </a>
+            </div>
+            {% endif%}
+
+            
+            <div class="cart-icon">
+                <i class="fa fa-shopping-cart">
+                </i>
+                <span class="items-count">0</span>
+            </div>
+        </nav>
+    <main>
+        <div class="left-bar-item-container">
+                <a href="#">All Products</a>
+                <a href="#">Electronic Gadjets <span class="product-decription"><img src="airfoce.jpg" alt="gadgets"></span> </a>
+                <a href="#">Furniture <span class="product-decription"><img src="photos/black-chair.jpg" alt="furniture"></span></a>
+                <a href="#">Food products<span class="product-decription"><img src="photos/black-chair.jpg" alt="Food prodeuct"></span></a>
+                <a href="#">Shoes <span class="product-decription"><img src="photos/airfoce.jpg" alt="shoe"></span> </a>
+                <a href="#">Shirts <span class="product-decription"><img src="photos/red-checks.png" alt="shirt"></span> </a>
+                <a href="#">Women Clothing<span class="product-decription"><img src="photos/dresses.jpg" alt="dress"></span> </a>
+                <a href="#">About Us <span><i class=""></i></span></a>
+                <a href="#">Contact Us <span><i class="fa fa-phone"></i></span></a>
+        </div>
+        <div class="right-bar-item-container">
+            {% for item in uploaded_items%}
+            <div class="items">
+                    <div class="product-to-sell">
+                        <img src="{{item.image.url}}" alt="item.name" class="product-to-sell-img">
+                        <i class="fa fa-heart"></i>
+                        <div class="product-decription">
+                            <h4 class="name">{{item.name}}</h4>
+                            <p class="tag">{{item.description}}</p>
+                            <div class="product-buttons">
+                        <span>K{{item.price}}</span>
+                        <button class="add-to-cart"><i class="fa fa-cart-plus"></i></button>
+                    </div>
+                        </div>
+                    </div>
+                    <a href="#" class="contact-seller">Contact seller</a>
+                    </div> 
+                           {% endfor %}
+                  
+        <div class="sidebar" id="sidebar">
+            <div class="close-tag">
+                <i class="fa fa-close"></i>
+                <div class="close-hover-element-decription">
+                    <p>close cart</p>
+                  </div>
+            </div>
+           
+            <h3 class="side-bar-heading">Your Products</h3>
+            <div class="items-list">
+
+            </div>
+            <div class="side-bar-footer">
+                <span>Total </span><span class="total">K0.00</span><br>
+
+                <button class="checkout">Checkout</button>
+            </div>
+            
+        </div>
+        <div class="modal-overlay">
+    <div class="modal">
+        <h2>Edit Item</h2>
+        <label for="modal-item-name">Item Name</label>
+        <input type="text" id="modal-item-name">
+        <label for="modal-item-quantity">Quantity</label>
+        <input type="number" id="modal-item-quantity" min="1">
+        <div class="modal-buttons">
+            <button id="save-edit">Save</button>
+            <button id="close-edit">Cancel</button>
+        </div>
+    </div>
+</div>
+
+    </main>
+    <script src="{% static 'shop/JS/index.js' %}"></script>
+</body>
+</html>

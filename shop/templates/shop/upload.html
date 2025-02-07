@@ -1,0 +1,48 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload items</title>
+    <link rel="stylesheet" href="{% static 'shop/CSS/upload.css' %}">
+</head>
+<body>
+    <a href="{% url 'home' %}">Home</a>
+    {% block content %}
+  <span>You have uploaded </span><p id="count"></p>  <span>Items</span>
+    
+    <div class="main-container">
+        <div class="form">
+            <form method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+           
+        {% for item in uploaded_items%}
+
+        <div class="pictures-container">
+            <div class="pictures"> <img src="{{item.image.url}}" alt="{{item.name}}">
+                <span>{{item.name}}</span> <span>K {{item.price}}</span>
+                <p>{{item.description}}</p>
+                 <p>uploaded {{item.uploded | timesince}} ago</p>
+                 <button><a href="{% url 'delete-item' item.id %}">Delete</a></button>
+                 <button><a href="{% url 'edit-item' item.id %}">Edit</a></button>
+            </div>
+    </div>
+    {% endfor%}
+      </div>
+    {% endblock %}
+<script>
+const items = document.querySelectorAll('.pictures-container')
+const count = items.length
+const text = document.getElementById('count')
+text.innerHTML =count
+
+</script>
+</body>
+</html> 
+
+
